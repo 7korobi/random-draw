@@ -2,7 +2,7 @@
 	import { Dice } from '$lib';
 	console.log(Dice);
 
-	let sample = Dice.tarot.deckTo('tarot-sample')
+	let sample = Dice.tarot.deckTo('tarot-sample');
 </script>
 
 <h1>Welcome to your library project</h1>
@@ -24,7 +24,11 @@
 <p>tarot : {Dice.tarot.choice().choice}</p>
 <p>trump : {Dice.trump.choice().choice}</p>
 <p>weather : {Dice.weather.choice().choice}</p>
-<hr/>
+<hr />
 {#each sample.faces as tarot}
-<p>{tarot.roman}.{tarot.label} <code>hebrew: "{tarot.hebrew}"</code><code>name: "{tarot.name}"</code><code>order: {tarot.order}</code></p>
+	<p>
+		{tarot.roman}.{tarot.label} <code>hebrew: "{tarot.hebrew}"</code><code
+			>name: "{tarot.name}"</code
+		><code>order: {tarot.order}</code>
+	</p>
 {/each}

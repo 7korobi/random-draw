@@ -20,13 +20,13 @@ type Base = {
 };
 
 type DeckItem = Base & {
-	deck_id: string
-	choice?: string
-}
+	deck_id: string;
+	choice?: string;
+};
 
 type RandomFace = Base & {
-	ratio: number
-}
+	ratio: number;
+};
 
 export type SUITES = typeof SUITES[number];
 export type RANKS = typeof RANKS[number];
@@ -95,14 +95,14 @@ function Deck(deck_id: string) {
 		faces,
 
 		add(item: DeckItem) {
-			delete (item as any).ratio
+			delete (item as any).ratio;
 			faces.push(item);
-			item.deck_id = deck_id
+			item.deck_id = deck_id;
 		},
 
 		choice() {
 			let at = Math.floor(Math.random() * faces.length);
-			const o = faces[at]
+			const o = faces[at];
 			o.choice = full_label(o);
 
 			return o;
@@ -112,21 +112,19 @@ function Deck(deck_id: string) {
 }
 
 function DICE(ratio: number) {
-	const types: DeckType[] = ['dice']
+	const types: DeckType[] = ['dice'];
 	const ret = {
-		deckTo(deck_id: string) {
-
-		},
+		deckTo(deck_id: string) {},
 
 		choice() {
 			const number = 1 + Math.floor(Math.random() * ratio);
-			const order = number
-			const label = `${number}`
-			const choice = full_label({ types, label, number, order })
+			const order = number;
+			const label = `${number}`;
+			const choice = full_label({ types, label, number, order });
 
-			return { choice, number, order }
+			return { choice, number, order };
 		}
-	}
+	};
 	return ret;
 }
 
@@ -141,15 +139,15 @@ function Random(type: DeckType) {
 			ratio += item.ratio;
 		},
 
-		deckTo(deck_id: string) {			
-			const dst = Deck(deck_id)
-			for (const o of faces){
+		deckTo(deck_id: string) {
+			const dst = Deck(deck_id);
+			for (const o of faces) {
 				let idx = o.ratio;
-				while(0 < idx--) {
-					dst.add({...o, deck_id})
+				while (0 < idx--) {
+					dst.add({ ...o, deck_id });
 				}
 			}
-			return dst
+			return dst;
 		},
 
 		choice() {
@@ -189,7 +187,7 @@ function add(item: RandomFace) {
 	});
 }
 
-export const Dice: { [key in DeckType]: ReturnType<typeof Random>} & { dice: typeof DICE } = {
+export const Dice: { [key in DeckType]: ReturnType<typeof Random> } & { dice: typeof DICE } = {
 	IAU: Random('IAU'),
 	dice: DICE
 } as any;
@@ -206,13 +204,13 @@ for (const type of types) {
 		oo.label ??= key;
 		oo.ratio ??= 1;
 		oo.types ??= [];
-		oo.order ??= order
+		oo.order ??= order;
 		if (!oo.types.includes(type)) oo.types.push(type);
 
 		if ('tarot' === type) {
-			oo.roman = ROMANS[order - 1]
+			oo.roman = ROMANS[order - 1];
 		} else {
-			oo.roman = ROMANS[order]
+			oo.roman = ROMANS[order];
 		}
 		add(oo);
 		order++;
@@ -224,9 +222,9 @@ for (const type of types) {
 	const ratio = 1;
 	const types: DeckType[] = ['eto'];
 
-	const now_year = new Date().getFullYear()
-	const eto10_start_year = now_year - (now_year - 1984) % 10
-	const eto12_start_year = now_year - (now_year - 1984) % 12
+	const now_year = new Date().getFullYear();
+	const eto10_start_year = now_year - ((now_year - 1984) % 10);
+	const eto12_start_year = now_year - ((now_year - 1984) % 12);
 
 	for (let idx = 0; idx < 60; ++idx) {
 		const eto10 = '甲乙丙丁戊己庚辛壬癸'[idx % 10];
@@ -237,8 +235,8 @@ for (const type of types) {
 		const label = `${eto10}${eto12}`;
 		const year = idx + 1984;
 		const order = idx + 1;
-		if (eto10_start_year <= year && year < eto10_start_year + 10) a.year = year
-		if (eto12_start_year <= year && year < eto12_start_year + 12) b.year = year
+		if (eto10_start_year <= year && year < eto10_start_year + 10) a.year = year;
+		if (eto12_start_year <= year && year < eto12_start_year + 12) b.year = year;
 		add({ year, types, ratio, label, name, order });
 	}
 })();
