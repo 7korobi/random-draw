@@ -2,7 +2,7 @@
 	import { Dice } from '$lib';
 	console.log(Dice);
 
-	let sample = Dice.tarot.deckTo('tarot-sample');
+	let sample = Dice.tarot.toDeck('tarot-sample');
 </script>
 
 <h1>Welcome to your library project</h1>

@@ -114,7 +114,7 @@ function Deck(deck_id: string) {
 function DICE(ratio: number) {
 	const types: DeckType[] = ['dice'];
 	const ret = {
-		deckTo(deck_id: string) {},
+		toDeck(deck_id: string) {},
 
 		choice() {
 			const number = 1 + Math.floor(Math.random() * ratio);
@@ -139,7 +139,7 @@ function Random(type: DeckType) {
 			ratio += item.ratio;
 		},
 
-		deckTo(deck_id: string) {
+		toDeck(deck_id: string) {
 			const dst = Deck(deck_id);
 			for (const o of faces) {
 				let idx = o.ratio;
